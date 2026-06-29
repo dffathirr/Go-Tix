@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once __DIR__ . '/config/app.php';
 require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/controllers/MovieController.php';
 require_once __DIR__ . '/controllers/BookingController.php';
@@ -58,12 +59,12 @@ switch ($route) {
                     render_view('detail', get_defined_vars());
                 } else {
                     // Movie not found in DB
-                    header("Location: /gotix-php/movies");
+                    header("Location: " . base_url('movies'));
                     exit();
                 }
             } else {
                 // If decryption fails (invalid ID hash), redirect back to movies list
-                header("Location: /gotix-php/movies");
+                header("Location: " . base_url('movies'));
                 exit();
             }
         } else {
@@ -102,11 +103,11 @@ switch ($route) {
                 $paymentMethods = $bookingController->getPaymentMethods();
                 render_view('booking', get_defined_vars());
             } else {
-                header("Location: /gotix-php/movies");
+                header("Location: " . base_url('movies'));
                 exit();
             }
         } else {
-            header("Location: /gotix-php/movies");
+            header("Location: " . base_url('movies'));
             exit();
         }
         break;
@@ -121,7 +122,7 @@ switch ($route) {
 
     default:
         // 404 Not Found Page (fallback to home for now)
-        header("Location: /gotix-php/");
+        header("Location: " . base_url(''));
         exit();
         break;
 }

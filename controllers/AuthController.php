@@ -99,7 +99,7 @@ class AuthController {
 
     public function logout() {
         session_destroy();
-        header("Location: /gotix-php/");
+        header("Location: " . base_url(''));
         exit;
     }
 }

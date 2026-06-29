@@ -15,6 +15,10 @@ function decrypt_id($hash) {
     return null;
 }
 
+function base_url($path = '') {
+    return rtrim(BASE_URL, '/') . '/' . ltrim($path, '/');
+}
+
 function render_view($viewPath, $data = []) {
     // Extract variables into current scope
     if (!empty($data)) {

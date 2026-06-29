@@ -156,14 +156,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            handleAuth(loginForm, '/gotix-php/auth/login');
+            handleAuth(loginForm, '<?= base_url("auth/login") ?>');
         });
     }
 
     if (registerForm) {
         registerForm.addEventListener('submit', (e) => {
             e.preventDefault();
-            handleAuth(registerForm, '/gotix-php/auth/register');
+            handleAuth(registerForm, '<?= base_url("auth/register") ?>');
         });
     }
 });
