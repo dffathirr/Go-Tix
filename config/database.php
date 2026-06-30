@@ -9,16 +9,16 @@ function loadEnv($path) {
     $lines = file($path, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     foreach ($lines as $line) {
         if (strpos(trim($line), '#') === 0) continue;
-        // handle empty values
+
         if (strpos($line, '=') !== false) {
             list($name, $value) = explode('=', $line, 2);
+
             $name = trim($name);
             $value = trim($value);
-            if (!array_key_exists($name, $_SERVER) && !array_key_exists($name, $_ENV)) {
-                putenv(sprintf('%s=%s', $name, $value));
-                $_ENV[$name] = $value;
-                $_SERVER[$name] = $value;
-            }
+
+            putenv("$name=$value");
+            $_ENV[$name] = $value;
+            $_SERVER[$name] = $value;
         }
     }
 }
@@ -29,11 +29,11 @@ $rootPath = dirname(__DIR__);
 // Load the .env variables
 loadEnv($rootPath . '/.env');
 
-$host = $_ENV['HOSTNAME'] ?? 'localhost';
-$port = $_ENV['PORT'] ?? '3306';
-$dbname = $_ENV['DATABASE'] ?? 'db_gotix';
-$username = $_ENV['USERNAME'] ?? 'root';
-$password = $_ENV['PASSWORD'] ?? '';
+$host = $_ENV['DB_HOST'] ?? 'localhost';
+$port = $_ENV['DB_PORT'] ?? '3306';
+$dbname = $_ENV['DB_NAME'] ?? 'db_gotix';
+$username = $_ENV['DB_USERNAME'] ?? 'root';
+$password = $_ENV['DB_PASSWORD'] ?? '';
 
 try {
     $dsn = "mysql:host={$host};port={$port};dbname={$dbname};charset=utf8mb4";
