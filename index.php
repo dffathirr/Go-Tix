@@ -5,14 +5,16 @@ require_once __DIR__ . '/config/database.php';
 require_once __DIR__ . '/controllers/MovieController.php';
 require_once __DIR__ . '/controllers/BookingController.php';
 require_once __DIR__ . '/utils/helper.php';
+require_once __DIR__ . '/controllers/AuthController.php';
+require_once __DIR__ . '/controllers/AdminController.php';
 
 // $pdo is already initialized in config/database.php
 
 // Initialize Controllers
 $movieController = new MovieController($pdo);
 $bookingController = new BookingController($pdo);
-require_once __DIR__ . '/controllers/AuthController.php';
 $authController = new AuthController($pdo);
+$adminController = new AdminController($pdo);
 
 // Parsing URL
 $url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : '';
@@ -118,6 +120,89 @@ switch ($route) {
 
     case 'register':
         require_once 'views/register.php';
+        break;
+
+    case 'admin':
+        $adminAction = $urlParams[1] ?? 'dashboard';
+        
+        switch ($adminAction) {
+            case 'dashboard':
+                $stats = $adminController->getDashboardStats();
+                $activeMenu = 'dashboard';
+                render_view('admin/dashboard', get_defined_vars(), 'admin');
+                break;
+            case 'movies':
+                $movies = $adminController->getMovies();
+                $activeMenu = 'movies';
+                render_view('admin/movies', get_defined_vars(), 'admin');
+                break;
+            case 'store-movie':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if ($adminController->storeMovie($_POST)) {
+                        $_SESSION['success_msg'] = "Film berhasil ditambahkan!";
+                    }
+                    // if false, AdminController already sets $_SESSION['error_msg']
+                }
+                header("Location: " . base_url('admin/movies'));
+                exit();
+            case 'update-movie':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if ($adminController->updateMovie($_POST['id'], $_POST)) {
+                        $_SESSION['success_msg'] = "Film berhasil diubah!";
+                    } else {
+                        $_SESSION['error_msg'] = "Gagal mengubah film.";
+                    }
+                }
+                header("Location: " . base_url('admin/movies'));
+                exit();
+            case 'delete-movie':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if ($adminController->deleteMovie($_POST['id'])) {
+                        $_SESSION['success_msg'] = "Film berhasil dihapus!";
+                    } else {
+                        $_SESSION['error_msg'] = "Gagal menghapus film.";
+                    }
+                }
+                header("Location: " . base_url('admin/movies'));
+                exit();
+            case 'cinemas':
+                $cinemas = $adminController->getCinemas();
+                $activeMenu = 'cinemas';
+                render_view('admin/cinemas', get_defined_vars(), 'admin');
+                break;
+            case 'store-cinema':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if ($adminController->storeCinema($_POST)) {
+                        $_SESSION['success_msg'] = "Bioskop berhasil ditambahkan!";
+                    }
+                }
+                header("Location: " . base_url('admin/cinemas'));
+                exit();
+            case 'update-cinema':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if ($adminController->updateCinema($_POST['id'], $_POST)) {
+                        $_SESSION['success_msg'] = "Bioskop berhasil diubah!";
+                    }
+                }
+                header("Location: " . base_url('admin/cinemas'));
+                exit();
+            case 'delete-cinema':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    if ($adminController->deleteCinema($_POST['id'])) {
+                        $_SESSION['success_msg'] = "Bioskop berhasil dihapus!";
+                    }
+                }
+                header("Location: " . base_url('admin/cinemas'));
+                exit();
+            case 'bookings':
+                $bookings = $adminController->getBookings();
+                $activeMenu = 'bookings';
+                render_view('admin/bookings', get_defined_vars(), 'admin');
+                break;
+            default:
+                header("Location: " . base_url('admin/dashboard'));
+                exit();
+        }
         break;
 
     default:

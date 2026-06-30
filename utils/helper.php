@@ -19,7 +19,7 @@ function base_url($path = '') {
     return rtrim(BASE_URL, '/') . '/' . ltrim($path, '/');
 }
 
-function render_view($viewPath, $data = []) {
+function render_view($viewPath, $data = [], $layout = 'app') {
     // Extract variables into current scope
     if (!empty($data)) {
         extract($data);
@@ -35,6 +35,6 @@ function render_view($viewPath, $data = []) {
     $activeMenu = $activeMenu ?? '';
     
     // Require the master layout
-    require __DIR__ . '/../views/layouts/app.php';
+    require __DIR__ . '/../views/layouts/' . $layout . '.php';
 }
 ?>
