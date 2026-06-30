@@ -285,7 +285,7 @@ $activeMenu = 'movies';
                     const pickSeatBtn = document.getElementById('pickSeatBtn');
                     if (pickSeatBtn) {
                         <?php if (isset($_SESSION['user_id'])): ?>
-                            pickSeatBtn.href = "booking?jadwal=" + jadwalId;
+                            pickSeatBtn.href = "<?= base_url('booking') ?>?jadwal=" + jadwalId;
                         <?php else: ?>
                             pickSeatBtn.href = "javascript:void(0)";
                         <?php endif; ?>
