@@ -55,7 +55,7 @@ $activeMenu = 'home';
                     <?php foreach ($ongoingMovies as $movie): ?>
                         <?php 
                             $poster = !empty($movie['poster']) ? $movie['poster'] : 'assets/img/poster-ongoing-1.webp'; 
-                            $title = htmlspecialchars($movie['title']);
+                            $movieTitle = htmlspecialchars($movie['title']);
                             $durasi = htmlspecialchars($movie['durasi']);
                             $rating = htmlspecialchars($movie['rating']);
                             $genre = htmlspecialchars($movie['genre']);
@@ -67,14 +67,14 @@ $activeMenu = 'home';
                         <div class="slider-item">
                             <a href="movies/<?= encrypt_id($movie['id']) ?>" class="text-decoration-none">
                                 <div class="movie-card position-relative rounded-4 overflow-hidden h-100 shadow">
-                                    <img src="<?= $poster ?>" alt="<?= $title ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3;">
+                                    <img src="<?= $poster ?>" alt="<?= $movieTitle ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3;">
                                     <div class="movie-info-overlay position-absolute bottom-0 start-0 w-100 p-3 d-flex flex-column justify-content-end transition-overlay">
                                         <div class="movie-badges d-flex gap-1 flex-wrap mb-2">
                                             <span class="badge bg-dark bg-opacity-75 border border-secondary text-white"><?= $durasi ?></span>
                                             <span class="badge <?= $ratingBadge ?>"><?= $rating ?></span>
                                             <span class="badge bg-secondary bg-opacity-75 text-white">2D</span>
                                         </div>
-                                        <h5 class="fw-bold text-white mb-0 text-truncate"><?= strtoupper($title) ?></h5>
+                                        <h5 class="fw-bold text-white mb-0 text-truncate"><?= strtoupper($movieTitle) ?></h5>
                                         <p class="text-white-50 small mb-0 mt-1 d-none d-md-block"><?= $genre ?></p>
                                         <button class="btn btn-primary btn-sm w-100 mt-3 fw-bold btn-buy rounded-pill opacity-0">Beli Tiket</button>
                                     </div>
@@ -108,14 +108,14 @@ $activeMenu = 'home';
                     <?php foreach ($comingSoonMovies as $movie): ?>
                         <?php 
                             $poster = !empty($movie['poster']) ? $movie['poster'] : 'assets/img/poster-ongoing-1.webp'; 
-                            $title = htmlspecialchars($movie['title']);
+                            $movieTitle = htmlspecialchars($movie['title']);
                         ?>
                         <div class="slider-item">
                             <a href="movies/<?= encrypt_id($movie['id']) ?>" class="text-decoration-none">
                                 <div class="movie-card position-relative rounded-4 overflow-hidden shadow">
-                                    <img src="<?= $poster ?>" alt="<?= $title ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3; filter: brightness(0.6);">
+                                    <img src="<?= $poster ?>" alt="<?= $movieTitle ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3; filter: brightness(0.6);">
                                     <div class="position-absolute top-50 start-50 translate-middle text-center w-100 p-3">
-                                        <h5 class="fw-bold text-white text-truncate mb-2"><?= strtoupper($title) ?></h5>
+                                        <h5 class="fw-bold text-white text-truncate mb-2"><?= strtoupper($movieTitle) ?></h5>
                                         <span class="badge border border-light text-light rounded-pill px-3 py-2">Segera Tayang</span>
                                     </div>
                                 </div>

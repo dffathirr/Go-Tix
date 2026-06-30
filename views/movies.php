@@ -70,7 +70,7 @@ $activeMenu = 'movies';
                         <?php foreach ($ongoingMovies as $movie): ?>
                             <?php 
                                 $poster = !empty($movie['poster']) ? $movie['poster'] : 'assets/img/poster-ongoing-1.webp'; 
-                                $title = htmlspecialchars($movie['title']);
+                                $movieTitle = htmlspecialchars($movie['title']);
                                 $durasi = htmlspecialchars($movie['durasi']);
                                 $rating = htmlspecialchars($movie['rating']);
                                 
@@ -81,10 +81,10 @@ $activeMenu = 'movies';
                             <div class="col">
                                 <a href="movies/<?= encrypt_id($movie['id']) ?>" class="text-decoration-none">
                                     <div class="movie-card position-relative rounded-4 overflow-hidden shadow bg-dark h-100">
-                                        <img src="<?= $poster ?>" alt="<?= $title ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3;">
+                                        <img src="<?= $poster ?>" alt="<?= $movieTitle ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3;">
                                         <div class="transition-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
                                             <div class="mt-auto d-flex flex-column align-items-center mb-2">
-                                                <h5 class="fw-bold text-white text-truncate w-100 text-center mb-2"><?= strtoupper($title) ?></h5>
+                                                <h5 class="fw-bold text-white text-truncate w-100 text-center mb-2"><?= strtoupper($movieTitle) ?></h5>
                                                 <div class="movie-badges d-flex flex-wrap gap-2 justify-content-center">
                                                     <span class="badge bg-secondary bg-opacity-50 text-light fw-medium"><?= $durasi ?></span>
                                                     <span class="badge <?= $ratingBadge ?> fw-bold"><?= $rating ?></span>
@@ -110,7 +110,7 @@ $activeMenu = 'movies';
                         <?php foreach ($comingSoonMovies as $movie): ?>
                             <?php 
                                 $poster = !empty($movie['poster']) ? $movie['poster'] : 'assets/img/poster-ongoing-1.webp'; 
-                                $title = htmlspecialchars($movie['title']);
+                                $movieTitle = htmlspecialchars($movie['title']);
                                 $durasi = htmlspecialchars($movie['durasi']);
                                 $rating = htmlspecialchars($movie['rating']);
                                 
@@ -121,10 +121,10 @@ $activeMenu = 'movies';
                             <div class="col">
                                 <a href="movies/<?= encrypt_id($movie['id']) ?>" class="text-decoration-none">
                                     <div class="movie-card position-relative rounded-4 overflow-hidden shadow bg-dark h-100">
-                                        <img src="<?= $poster ?>" alt="<?= $title ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3; filter: brightness(0.8);">
+                                        <img src="<?= $poster ?>" alt="<?= $movieTitle ?>" class="img-fluid w-100 object-fit-cover" style="aspect-ratio: 2/3; filter: brightness(0.8);">
                                         <div class="transition-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
                                             <div class="mt-auto d-flex flex-column align-items-center mb-2">
-                                                <h5 class="fw-bold text-white text-truncate w-100 text-center mb-2"><?= strtoupper($title) ?></h5>
+                                                <h5 class="fw-bold text-white text-truncate w-100 text-center mb-2"><?= strtoupper($movieTitle) ?></h5>
                                                 <div class="movie-badges d-flex flex-wrap gap-2 justify-content-center">
                                                     <span class="badge bg-secondary bg-opacity-50 text-light fw-medium"><?= $durasi ?></span>
                                                     <span class="badge <?= $ratingBadge ?> fw-bold"><?= $rating ?></span>
